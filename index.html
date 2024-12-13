@@ -1,0 +1,258 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Brahmos Aerospace | War</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .launcher-img {
+            height: auto;
+            width: 20%;
+        }
+
+        .truck {
+            position: relative;
+            top: 205px;
+        }
+
+        .ship {
+            position: relative;
+            left: 60%;
+            top: 8px;
+            display: inline;
+        }
+
+        .enemy {
+            position: relative;
+            left: 55%;
+            top: 180px;
+            display: inline;
+        }
+
+        .jet {
+            position: relative;
+            bottom: 164px;
+            left: 22%;
+            display: inline;
+        }
+
+        .jet-size {
+            height: auto;
+            width: 112px;
+        }
+
+        .ship-size {
+            height: auto;
+            width: 11%;
+        }
+
+        .ship1 {
+            position: relative;
+            left: 43%;
+            top: 147px;
+            display: inline;
+        }
+
+        .ship2 {
+            top: 138px;
+            left: 29px;
+            display: inline;
+            position: relative;
+        }
+
+        .missile, .missile-fire {
+            position: absolute;
+            height: auto;
+            width: 50px;
+            display: none;
+        }
+
+        .explosion {
+            position: absolute;
+            width: 80px;
+            height: auto;
+            display: none;
+        }
+
+        .fire {
+            position: absolute;
+            width: 100px;
+            height: auto;
+            display: none;
+        }
+
+        /* Missile animations */
+        @keyframes fireMissileFromJet {
+            0% {
+                left: 25%;
+                top: 10%;
+            }
+            100% {
+                left: 84%;
+                top: 48%;
+            }
+        }
+
+        @keyframes fireMissileFromTank {
+            0% {
+                left: 10%;
+                bottom: 63%;
+            }
+            100% {
+                left: 54%;
+                top: 52%;
+            }
+        }
+
+        @keyframes fireMissileFromShip {
+            0% {
+                left: 90%;
+                top: 170px;
+            }
+            100% {
+                left: 75%;
+                top: 50%;
+            }
+        }
+
+        /* Set missile angles */
+        .missile-jet, .missile-fire-jet {
+            animation: fireMissileFromJet 2s forwards;
+            transform: rotate(45deg); /* Adjust angle */
+        }
+
+        .missile-tank, .missile-fire-tank {
+            animation: fireMissileFromTank 2s forwards;
+            transform: rotate(30deg); /* Adjust angle */
+        }
+
+        .missile-ship, .missile-fire-ship {
+            animation: fireMissileFromShip 2s forwards;
+            transform: rotate(170deg); /* Adjust angle */
+        }
+
+        /* Explosion positioning */
+        .explosion-jet {
+            left: 85%;
+            top: 45%;
+        }
+
+        .explosion-tank {
+            left: 56%;
+            top: 48%;
+        }
+
+        .explosion-ship {
+            left: 70%;
+            top: 48%;
+        }
+
+        /* Fire positioning */
+        .fire-jet {
+            left: 85%;
+            top: 43%;
+        }
+
+        .fire-tank {
+            left: 56%;
+            top: 50%;
+        }
+
+        .fire-ship {
+            left: 71%;
+            top: 42%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Creative Banner Section -->
+    <div class="Container-fluid" style="background-image: url('images/bg5.jpg'); height: 415px;" id="warzone">
+        <div class="container">
+            <div class="truck"><img src="images/truck.png" alt="" class="launcher-img"></div>
+            <div class="jet upslide"><img src="images/jet.png" alt="" class="jet-size"></div>
+            <div class="enemy"><img src="images/enemy.png" alt="" class="launcher-img"></div>
+            <div class="ship"><img src="images/ship.png" alt="" class="ship-size"></div>
+            <div class="ship1"><img src="images/ship1.png" alt="" class="ship-size"></div>
+            <div class="ship2"><img src="images/ship2.png" alt="" class="ship-size"></div>
+
+            <!-- Missiles -->
+            <img src="images/missile.png" alt="" class="missile missile-jet">
+            <img src="images/firemissile.png" alt="" class="missile-fire missile-fire-jet">
+            <img src="images/missile.png" alt="" class="missile missile-tank">
+            <img src="images/firemissile.png" alt="" class="missile-fire missile-fire-tank">
+            <img src="images/missile.png" alt="" class="missile missile-ship">
+            <img src="images/firemissile.png" alt="" class="missile-fire missile-fire-ship">
+
+            <!-- Explosions -->
+            <img src="images/explosion.png" alt="" class="explosion explosion-jet">
+            <img src="images/explosion.png" alt="" class="explosion explosion-tank">
+            <img src="images/explosion.png" alt="" class="explosion explosion-ship">
+
+            <!-- Fire -->
+            <img src="images/fire2.png" alt="" class="fire fire-jet">
+            <img src="images/fire.png" alt="" class="fire fire-tank">
+            <img src="images/fire1.png" alt="" class="fire fire-ship">
+        </div>
+    </div>
+    <!-- Creative Banner Section End-->
+
+    <!-- Sound Effects -->
+    <audio id="explosionSound" src="sounds/explosion.mp3"></audio>
+    <audio id="missileSound" src="sounds/missile.mp3"></audio>
+
+    <script>
+        // Function to start the missile animations
+        function fireMissiles() {
+            // Display the missiles and the fire behind them
+            document.querySelector('.missile-jet').style.display = 'block';
+            document.querySelector('.missile-fire-jet').style.display = 'block';
+            document.querySelector('.missile-tank').style.display = 'block';
+            document.querySelector('.missile-fire-tank').style.display = 'block';
+            document.querySelector('.missile-ship').style.display = 'block';
+            document.querySelector('.missile-fire-ship').style.display = 'block';
+
+            // Play missile sound
+            document.getElementById('missileSound').play();
+
+            // Show explosions and play sound after missile animation ends
+            setTimeout(function () {
+                document.querySelector('.missile-jet').style.display = 'none';
+                document.querySelector('.missile-fire-jet').style.display = 'none';
+                document.querySelector('.missile-tank').style.display = 'none';
+                document.querySelector('.missile-fire-tank').style.display = 'none';
+                document.querySelector('.missile-ship').style.display = 'none';
+                document.querySelector('.missile-fire-ship').style.display = 'none';
+
+                // Display explosion images
+                document.querySelector('.explosion-jet').style.display = 'block';
+                document.querySelector('.explosion-tank').style.display = 'block';
+                document.querySelector('.explosion-ship').style.display = 'block';
+
+                // Play explosion sound
+                document.getElementById('explosionSound').play();
+
+                // Hide explosion images and show fire after some time
+                setTimeout(function () {
+                    document.querySelector('.explosion-jet').style.display = 'none';
+                    document.querySelector('.explosion-tank').style.display = 'none';
+                    document.querySelector('.explosion-ship').style.display = 'none';
+
+                    // Show fire images
+                    document.querySelector('.fire-jet').style.display = 'block';
+                    document.querySelector('.fire-tank').style.display = 'block';
+                    document.querySelector('.fire-ship').style.display = 'block';
+                }, 1000); // Duration the explosion image is visible
+            }, 2000); // Adjust the timeout to match the missile animation duration
+        }
+
+        // Attach the fireMissiles function to a click event on the warzone div
+        document.getElementById('warzone').addEventListener('click', fireMissiles);
+    </script>
+</body>
+
+</html>
